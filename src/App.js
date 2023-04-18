@@ -33,7 +33,6 @@ const App = ({result}) => {
  const getTransaction = async (e) => {
    try {
      const { status, data } = await axios.get(
-      // PUT YOUR API HERE
        "http://localhost:8080/api/stocks/getStocks?pageNo=0&pageSize=10&sortBy=id",
        
      );
