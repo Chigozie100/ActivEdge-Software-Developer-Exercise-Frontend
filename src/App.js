@@ -18,6 +18,7 @@ const App = ({result}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
+  const [tData, setTdata] = useState("")
   const columns = [
     { id: "Name", label: "Name", minWidth: 170 },
     { id: "CurrentPrice", label: "CurrentPrice", minWidth: 170 },
@@ -39,11 +40,12 @@ const App = ({result}) => {
      console.log(data);
      
      if (status === 200) {
-       return data.data.map((data) =>
+      console.log(data)
+       return data.content.map((data) =>
          createData(
            data.name,
-           data.price,
-           data.company,
+           data.currentPrice,
+           data.createdDate,
           
          )
        );
@@ -57,13 +59,13 @@ const App = ({result}) => {
 
   function createData(
     name,
-    price,
-    company,
+    currentPrice,
+    createdDate,
     
   ) {
-    return { name, price, company };
+    return { name, currentPrice, createdDate };
   }
-
+console.log( createData )
 
 
   const handleChangePage = (event, newPage) => {
@@ -74,6 +76,7 @@ const App = ({result}) => {
        setRows(data);
      });
    }, [result]);
+   console.log(rows)
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -107,15 +110,25 @@ const App = ({result}) => {
                       tabIndex={-1}
                       key={rowIndex}
                     >
-                      {columns.map((column, coLindex) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={coLindex} align={column.align}>
+                          <TableCell>
                             {/* {console.log(value)} */}
+                              {row.name}
                             
                           </TableCell>
+                          <TableCell>
+                            {/* {console.log(value)} */}
+                              {row.currentPrice}
+                          </TableCell>
+                          <TableCell>
+                            {/* {console.log(value)} */}
+                              {row.createdDate}
+                          </TableCell>
+                         
+                      {/* {columns.map((column, coLindex) => {
+                        const value = row[column.id];
+                        return (
                         );
-                      })}
+                      })} */}
                     </TableRow>
                   );
                 })}
